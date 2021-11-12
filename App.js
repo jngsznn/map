@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground, SafeAreaView} from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import {SearchBar, Button} from 'react-native-elements';
+import Directions from './Directions.js';
+const d = Dimensions.get('window');
 
 const d = Dimensions.get('window');
 
@@ -76,6 +78,7 @@ export default function App() {
                       maxOverflow={200}>
                <ImageBackground style={styles.image}
                       source={{uri:'https://www.mit.edu/files/images/201807/15656704711_00457bd2c9_b_1.jpg'}}/>
+                <Directions/>
   </ImageZoom>
 
 
@@ -86,10 +89,6 @@ export default function App() {
   </SafeAreaView>
 
   </View>
-  
-  
-
-
  );
 }
 
