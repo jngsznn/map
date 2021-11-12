@@ -6,8 +6,6 @@ import {SearchBar, Button} from 'react-native-elements';
 import Directions from './Directions.js';
 const d = Dimensions.get('window');
 
-const d = Dimensions.get('window');
-
 var start ="";
 var end="";
 
