@@ -1,45 +1,74 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, ImageBackground, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, ImageBackground, SafeAreaView} from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
-import {SearchBar} from 'react-native-elements';
+import {SearchBar, Button} from 'react-native-elements';
 
+const d = Dimensions.get('window');
 
-//SearchBar
-export class Search extends React.Component {
+var start ="";
+var end="";
+
+//SearchBar Class
+class Search extends React.Component {
   constructor(props){
     super(props);
   }
-  state = {
-    search: '',
-  };
+  state = {search1 :"", search2 : "",};
+
   
-  
-  updateSearch = (search) => {this.setState({search});
+  updateStart = (search1) => {this.setState({search1});
   };
+  updateEnd = (search2) => {this.setState({search2});};
   
   render() {
-    const {search } = this.state;
-    console.log(this.state)
+    start=this.state.search1;
+    end=this.state.search2;
+  
+ 
+ 
   
     return (
-      <SearchBar
+     <View>
+       <SearchBar
         lightTheme="true"
-        placeholder= {this.props.placeholder}
-        onChangeText={this.updateSearch}
-        value={search}
-      />
+        placeholder= "start"
+        onChangeText={this.updateStart}
+        value={this.state.search1}> 
+        </SearchBar>
+
+
+        <SearchBar
+        lightTheme="true"
+        placeholder= "end"
+        onChangeText={this.updateEnd}
+        value={this.state.search2}> 
+        </SearchBar>    
+
+     </View> 
+
+      
+      
+   
     );
   }
  }
 
 
-const d = Dimensions.get('window');
+
+
+
+function Click()
+{
+  console.log({start});
+  console.log({end});
+}
 
 export default function App() {
   
  return (
    <View>
+    
     <ImageZoom cropWidth={d.width+100}
                       cropHeight={d.height+100}
                       imageWidth={d.width+300}
@@ -48,9 +77,12 @@ export default function App() {
                <ImageBackground style={styles.image}
                       source={{uri:'https://www.mit.edu/files/images/201807/15656704711_00457bd2c9_b_1.jpg'}}/>
   </ImageZoom>
+
+
    <SafeAreaView style={styles.container}>
-   <Search style= {styles.searchbar} placeholder="Start"> </Search>
-   <Search style={styles.searchbar} placeholder="End"> </Search>
+   <Search style= {styles.searchbar}> </Search>
+   
+   <Button title="Find" onPress={Click}/>
   </SafeAreaView>
 
   </View>
