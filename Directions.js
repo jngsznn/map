@@ -74,7 +74,7 @@ const n10 = {
 };
 
 export default class Directions extends React.Component {
-    constructor(props, nodes, edges) {
+    constructor(props,start_end) {
         super(props);
         this.state = {"nodes": [n1,n2,n3,n4,n5,n6,n7,n8,n9,n10],
                       "edges": [[1,2,6],
@@ -88,16 +88,16 @@ export default class Directions extends React.Component {
                                 [5,9],
                                 [8]],
                       "path": null,
-                      "start": null, 
-                      "end": null, 
+                      "start": start_end[0], 
+                      "end": start_end[1], 
                       "new_route": false, 
                       "floor": 0};
     }
 
     prepareData() {
         if (this.state["new_route"]) {
-            this.state["path"] = a_star()
-            this.state["new_route"] = false
+            this.setState({"path": a_star()});
+            this.setState({"new_route": false});
         }
 
         let circles = [];
@@ -106,8 +106,6 @@ export default class Directions extends React.Component {
 
         for (let i=0; i<this.state["nodes"].length; i++) {
             for (let j=0; j<this.state["edges"][i].length; j++) {
-                console.log(i)
-                console.log(j)
                 let node1 = this.state["nodes"][i];
                 let node2 = this.state["nodes"][this.state["edges"][i][j]];
                 connections.push(<Path d = {`M${node1.x} ${node1.y} L${node2.x} ${node2.y}`} 

@@ -15,8 +15,9 @@
     "react-native": "0.64.2",
     "react-native-elements": "^3.4.2",
     "react-native-image-pan-zoom": "^2.1.12",
-    "react-native-web": "0.17.1",
-    "react-native-svg": "12.1.1"
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-svg": "^12.1.1",
+    "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
