@@ -36,8 +36,6 @@ class Search extends React.Component {
         onChangeText={this.updateStart}
         value={this.state.search1}> 
         </SearchBar>
-
-
         <SearchBar
         lightTheme="true"
         placeholder= "end"
@@ -47,16 +45,9 @@ class Search extends React.Component {
 
      </View> 
 
-      
-      
-   
     );
   }
  }
-
-
-
-
 
 function Click()
 {
