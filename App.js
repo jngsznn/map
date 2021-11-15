@@ -15,20 +15,27 @@ import { SearchBar, Button } from "react-native-elements";
 import { useState } from "react";
 import Directions from "./Directions.js";
 import Search from "./Search.js";
-import { useNode } from "./providers/NodeProvider";
+import { addNode, addEdge } from "./firebase.js";
 
 const d = Dimensions.get("window");
 
 export default function App() {
   const [data, setData] = useState("");
   const [newNode, setNewNode] = useState("");
-  const { createNode } = useNode();
   const updatePath = (pathData) => {
     setData(pathData);
   };
-  // const updateNode = (evt) => {
-  //   setNewNode(evt.target.value);
-  // };
+  const createNode = async () => {
+    console.log("aaaa - starting");
+    try {
+      await addNode("0start_test");
+      await addNode("1end_test");
+      const edgeRef = await addEdge("0start_test", "1end_test", 40);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    console.log("aaaa - ending");
+  };
   return (
     <View style={styles.background}>
       <ImageZoom
@@ -56,13 +63,7 @@ export default function App() {
           onChangeText={setNewNode}
           placeholder="Enter new Node name!"
         />
-        <Button
-          onPress={() => {
-            createNode(newNode);
-          }}
-        >
-          Create node
-        </Button>
+        <Button onPress={createNode} title="Create node" />
       </SafeAreaView>
     </View>
   );
