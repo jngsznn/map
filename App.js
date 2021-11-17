@@ -18,13 +18,13 @@ export default function App() {
   return (
    <View style = {styles.background}>
       <ImageZoom cropWidth={d.width}
-                       cropHeight={d.height-200}
+                       cropHeight={d.height+100}
                        imageWidth={d.width}
                        imageHeight={d.height}
                        maxOverflow={500}>
               <ImageBackground style={styles.image}
                        source={{uri:'https://www.mit.edu/files/images/201807/15656704711_00457bd2c9_b_1.jpg'}}
-                       style={{width: d.width, height: d.height-100}}>
+                       style={{width: d.width, height: d.height-50}}>
                   <Directions start_end = {data}/>
               </ImageBackground>
         </ImageZoom>
@@ -45,12 +45,13 @@ const styles = StyleSheet.create({
  container: {
    
    //flex:1,
-   //justifyContent: 'flex-end',
+   justifyContent: 'flex-end',
    backgroundColor: 'green',
    //justifyContent:'center',
    width:'100%',
+
    //alignContent:'center',
-   //position:'absolute',
+   position:'absolute',
 
    //backgroundColor: '#fff',
 

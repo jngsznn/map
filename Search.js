@@ -23,7 +23,7 @@ export default class Search extends React.Component {
 
       if (this.state["search_active"]) {
         return (
-        <View>
+        <View style={styles.container}> 
             <SearchBar
             //lightTheme="true"
             placeholder= "start"
@@ -53,12 +53,10 @@ export default class Search extends React.Component {
 
    const styles = StyleSheet.create({
     container: {
-        //flex:1,
-        //alignItems:"center"
+      
     },
     start: {
       //justifyContent: 'flex-end',
-      //flex:1,
       backgroundColor: "red",
-      marginBottom:100
+      //marginTop:
     },});
