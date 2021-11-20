@@ -7,7 +7,7 @@ import {SearchBar, Button} from 'react-native-elements';
 export default class Search extends React.Component {
     constructor(props){
       super(props);
-      this.state = {search1: "", search2: "", search_active: false};
+      this.state = {search1: "", search2: "", search_active: false, searched:false}
     }
   
     
@@ -15,6 +15,7 @@ export default class Search extends React.Component {
     updateEnd = (search2) => {this.setState({search2});};
 
 
+    find = () => {this.setState({search_active: false});};
     find = () => {this.setState({search_active: false});};
     
     render() {
@@ -25,27 +26,30 @@ export default class Search extends React.Component {
         return (
         <View style={styles.container}> 
             <SearchBar
-            //lightTheme="true"
+            lightTheme="true"
             placeholder= "start"
             onChangeText={this.updateStart}
+            round="true"
             value={this.state.search1}> 
             </SearchBar>
     
     
             <SearchBar
-            //lightTheme="true"
+            lightTheme="true"
             placeholder= "end"
+            round="true"
             onChangeText={this.updateEnd}
             value={this.state.search2}> 
+            
             </SearchBar>    
             <Button title="Find" onPress={this.find}/>
         </View>
         );
       }
       return (
-          <View style={styles.start}>
+          <View style={styles.start}> 
               <Button title="New Trip" onPress={() => 
-        this.setState({"search_active": true})} style={styles.start}/>
+        this.setState({"search_active": true, search1: "", search2: "" })} style={styles.start}/>
           </View>
       );
     }
@@ -57,6 +61,6 @@ export default class Search extends React.Component {
     },
     start: {
       //justifyContent: 'flex-end',
-      backgroundColor: "red",
+      //backgroundColor: "red",
       //marginTop:
     },});
