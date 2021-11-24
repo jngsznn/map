@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,28 +9,59 @@ import {
   Dimensions,
   ImageBackground,
   SafeAreaView,
+  LogBox, // For getting rid of annoying log warnings (https://github.com/facebook/react-native/issues/12981)
 } from "react-native";
 import ImageZoom from "react-native-image-pan-zoom";
+LogBox.ignoreLogs(["Warning: Setting a timer"]); // For getting rid of annoying log warnings (https://github.com/facebook/react-native/issues/12981)
+
 import { SearchBar, Button } from "react-native-elements";
 import { useState } from "react";
 import Directions from "./Directions.js";
 import Search from "./Search.js";
-import { addNode, addEdge } from "./firebase.js";
+import { addNode, addEdge, getGraph } from "./firebase.js";
 
 const d = Dimensions.get("window");
 
 export default function App() {
+  let [graph, setGraph] = useState(null);
+  //This will be ran only once (at the beginning)
+  useEffect(async () => {
+    graph = await getGraph();
+    setGraph(graph);
+    console.log("Graph found!");
+    console.log(graph);
+    console.log("bbbb");
+  }, []);
+
   const [data, setData] = useState("");
-  const [newNode, setNewNode] = useState("");
   const updatePath = (pathData) => {
     setData(pathData);
   };
   const createNode = async () => {
     console.log("aaaa - starting");
     try {
-      await addNode("0start_test");
-      await addNode("1end_test");
-      const edgeRef = await addEdge("0start_test", "1end_test", 40);
+      await addNode("a", 100, 100, 0); //n1
+      await addNode("b", 100, 200, 0); //n2
+      await addNode("c", 200, 200, 0); //n3
+      await addNode("d", 300, 300, 1); //n4
+      await addNode("e", 100, 350, 0); //n5
+      await addNode("f", 50, 200, 0); //n6
+      await addNode("g", 50, 100, 0); //n7
+      await addNode("h", 100, 400, 0); //n8
+      await addNode("i", 100, 50, 1); //n9
+      await addNode("j", 300, 50, 0); //n10
+      await addEdge("a", "b", 0);
+      await addEdge("a", "c", 0);
+      await addEdge("a", "g", 0);
+      await addEdge("b", "c", 0);
+      await addEdge("c", "d", 0);
+      await addEdge("d", "h", 0);
+      await addEdge("e", "f", 0);
+      await addEdge("e", "h", 0);
+      await addEdge("f", "g", 0);
+      await addEdge("f", "i", 0);
+      await addEdge("i", "j", 0);
+      console.log("hehe");
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -58,12 +89,6 @@ export default function App() {
 
       <SafeAreaView style={styles.container}>
         <Search style={styles.searchbar}> </Search>
-        <TextInput
-          value={newNode}
-          onChangeText={setNewNode}
-          placeholder="Enter new Node name!"
-        />
-        <Button onPress={createNode} title="Create node" />
       </SafeAreaView>
     </View>
   );
