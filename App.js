@@ -37,29 +37,10 @@ export default function App() {
   const updatePath = (pathData) => {
     setData(pathData);
   };
-  const createNode = async () => {
+  const demo = async () => {
     console.log("aaaa - starting");
     try {
       await addNode("a", 100, 100, 0); //n1
-      await addNode("b", 100, 200, 0); //n2
-      await addNode("c", 200, 200, 0); //n3
-      await addNode("d", 300, 300, 1); //n4
-      await addNode("e", 100, 350, 0); //n5
-      await addNode("f", 50, 200, 0); //n6
-      await addNode("g", 50, 100, 0); //n7
-      await addNode("h", 100, 400, 0); //n8
-      await addNode("i", 100, 50, 1); //n9
-      await addNode("j", 300, 50, 0); //n10
-      await addEdge("a", "b", 0);
-      await addEdge("a", "c", 0);
-      await addEdge("a", "g", 0);
-      await addEdge("b", "c", 0);
-      await addEdge("c", "d", 0);
-      await addEdge("d", "h", 0);
-      await addEdge("e", "f", 0);
-      await addEdge("e", "h", 0);
-      await addEdge("f", "g", 0);
-      await addEdge("f", "i", 0);
       await addEdge("i", "j", 0);
       console.log("hehe");
     } catch (e) {
