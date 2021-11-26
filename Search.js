@@ -15,7 +15,10 @@ export default class Search extends React.Component {
     updateEnd = (search2) => {this.setState({search2});};
 
 
-    find = () => {this.setState({search_active: false});};
+    find = () => {
+        this.setState({search_active: false});
+        this.props.update_start_end(this.state.search1,this.state.search2);
+    };
     
     render() {
       start=this.state.search1;

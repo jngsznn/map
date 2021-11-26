@@ -85,7 +85,7 @@ class MinHeap {
     }
 }
 
-function l2_distance(x1,y1,x2,y2,z1,z2) {
+function l2_distance(x1,y1,z1,x2,y2,z2) {
     return Math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2);
 }
 
@@ -97,17 +97,28 @@ function compute_h(nodes, end) {
     return h;
 }
 
-function reconstruct_path(previous, node) {
-    let path = [node];
-    let next = previous[path[0]];
+function get_xyz(node) {
+    return [node.x,node.y,node.z];
+}
+
+function reconstruct_path(previous, node, nodes) {
+    for (let i=0; i<nodes.length; i++) {
+        console.log(previous[i]);
+    }
+    let path = [get_xyz(nodes[node])];
+    let next = previous[node];
     while (next != -1) {
-        path.splice(0,0,next);
-        next = previous[path[0]];
+        path.splice(0,0,get_xyz(nodes[next]));
+        next = previous[next];
     }
     return path;
 }
 
 function a_star(nodes, edges, start, end) {
+    if (start == -1 || end == -1) {
+        return -1;
+    }
+
     let open_set = new MinHeap();
     open_set.add_element(start,0);
 
@@ -124,15 +135,13 @@ function a_star(nodes, edges, start, end) {
 
     while (open_set.size > 0) {
         let node = open_set.get_min();
-        console.log(node)
         if (node == end) {
-            return reconstruct_path(previous, end);
+            return reconstruct_path(previous, end, nodes);
         }
 
-        console.log(edges[node])
         for (let i=0; i<edges[node].length; i++) {
             let neighbor = edges[node][i];
-            let gScore = g[node] + l2_distance(nodes[node].x,nodes[node].y,nodes[neighbor].x,nodes[neighbor].y);
+            let gScore = g[node] + l2_distance(nodes[node].x,nodes[node].y,nodes[node].z,nodes[neighbor].x,nodes[neighbor].y,nodes[neighbor].z);
             
             if (gScore < g[neighbor]) {
                 previous[neighbor] = node;
@@ -144,7 +153,6 @@ function a_star(nodes, edges, start, end) {
                 }
             }
         }
-        console.log(open_set.data)
     }
 
     return -1;
@@ -181,3 +189,5 @@ const n5 = {
 };
 
 //console.log(a_star([n1,n2,n3,n4,n5],[[1,2],[0,4],[0,3],[2,1],[1]],0,4))
+
+export {a_star};
