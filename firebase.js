@@ -14,7 +14,19 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  // Secret - ask Raul for it
+  apiKey: "AIzaSyBjGpM4HAuuXc02b_TFKuy7gHjoPH_s-No",
+
+  authDomain: "mit-building-maps-f6ee8.firebaseapp.com",
+
+  projectId: "mit-building-maps-f6ee8",
+
+  storageBucket: "mit-building-maps-f6ee8.appspot.com",
+
+  messagingSenderId: "445831994131",
+
+  appId: "1:445831994131:web:af2ed981807be0e62258e6",
+
+  measurementId: "G-W1T8H70TXV"
 };
 if (Object.keys(firebaseConfig).length == 0) {
   console.log(
