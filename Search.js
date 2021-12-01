@@ -2,12 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground, SafeAreaView} from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import {SearchBar, Button} from 'react-native-elements';
-
 //SearchBar Class
 export default class Search extends React.Component {
     constructor(props){
       super(props);
-      this.state = {search1: "", search2: "", search_active: false};
+      this.state = {search1: "", search2: "", search_active: false}
     }
   
     
@@ -26,29 +25,37 @@ export default class Search extends React.Component {
 
       if (this.state["search_active"]) {
         return (
-        <View>
+        <View style={styles.container}> 
             <SearchBar
+            
             //lightTheme="true"
             placeholder= "start"
             onChangeText={this.updateStart}
+            round="true"
+            inputStyle={{color:'white', fontSize:18}}
             value={this.state.search1}> 
+          
             </SearchBar>
     
     
             <SearchBar
-            //lightTheme="true"
             placeholder= "end"
+            round="true"
             onChangeText={this.updateEnd}
+            //containerStyle={{backgroundColor: 'white'}}
+            inputStyle={{color:'white', fontSize:18}}
             value={this.state.search2}> 
+            
             </SearchBar>    
-            <Button title="Find" onPress={this.find}/>
+            <Button title="Find" styles={{fontSize:18}} onPress={this.find}/>
+            
         </View>
         );
       }
       return (
-          <View style={styles.start}>
-              <Button title="New Trip" onPress={() => 
-        this.setState({"search_active": true})} style={styles.start}/>
+          <View style={styles.start}> 
+              <Button title="New Trip" styles={{fontSize:20}} onPress={() => 
+        this.setState({"search_active": true, search1: "", search2: "" })} style={styles.start}/>
           </View>
       );
     }
@@ -56,12 +63,11 @@ export default class Search extends React.Component {
 
    const styles = StyleSheet.create({
     container: {
-        //flex:1,
-        //alignItems:"center"
+   
+      
     },
     start: {
       //justifyContent: 'flex-end',
-      //flex:1,
-      backgroundColor: "red",
-      marginBottom:100
+      //backgroundColor: "red",
+      //marginTop:
     },});

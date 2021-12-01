@@ -155,33 +155,39 @@ export default function App() {
         <Search style={styles.searchbar} update_start_end={updatePath}/>
       </SafeAreaView>
   </View>
+ 
  );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: "white",
-  },
-  container: {
-    //flex:1,
-    //justifyContent: 'flex-end',
-    backgroundColor: "green",
-    //justifyContent:'center',
-    width: "100%",
-    //alignContent:'center',
-    //position:'absolute',
+ background: {
+  //backgroundColor: 'yellow',
+ },
+ container: {
+   
+   //flex:1,
+   justifyContent: 'flex-end',
+   backgroundColor: 'green',
+   //justifyContent:'center',
+   width:'100%',
 
-    //backgroundColor: '#fff',
+   //alignContent:'center',
+   position:'absolute',
 
-    //justifyContent:'space-evenly',
-  },
-  image: {
-    width: d.width + 300,
-    height: d.height + 100,
-    //resizeMode: 'cover',
-  },
-  searchbar: {
-    //width:d.width+300,
-    //height:d.height+100,
-  },
+   //backgroundColor: '#fff',
+
+   //justifyContent:'space-evenly',
+  
+ },
+ image: {
+  width:d.width+300,
+  height:d.height+100,
+  //resizeMode: 'cover',
+
+ },
+searchbar:{
+  //width:d.width+300,
+  //height:d.height+100,
+
+},
 });
