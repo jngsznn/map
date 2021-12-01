@@ -15,10 +15,9 @@ export default class Search extends React.Component {
 
 
     find = () => {
-      this.setState({search_active: false});
-
-     };
-    
+        this.setState({search_active: false});
+        this.props.update_start_end(this.state.search1,this.state.search2);
+    };
     
     render() {
       start=this.state.search1;
