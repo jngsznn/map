@@ -74,6 +74,7 @@ export default class Directions extends React.Component {
                 circles.push(<Circle cx={this.props.path[this.props.path.length-1][0]} cy={this.props.path[this.props.path.length-1][1]} r="10" stroke="green" strokeWidth="3" strokeDasharray="2 2" key={prevKey}/>)
             }
         }
+        circles.push(<Circle cx={2164} cy={1591} r="10" stroke="green" strokeWidth="3" strokeDasharray="2 2" key={prevKey}/>)
 
         return [path, circles, connections];
     }
@@ -82,11 +83,6 @@ export default class Directions extends React.Component {
         let data = this.prepareData();
         return (
             <Svg height={this.props.height} width={this.props.width}>
-                <SvgUri
-                    width="100%"
-                    height="100%"
-                    uri={this.props.uri}
-                />
                 {data[2]}
                 <Path d = {data[0]} 
                     stroke="yellow"
@@ -94,6 +90,7 @@ export default class Directions extends React.Component {
                     fill="none"
                 />
                 {data[1]}
+                <Image source={require('./1_0_original.png')} opacity={0.5}/>
             </Svg> 
 
         )
