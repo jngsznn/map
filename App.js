@@ -15,7 +15,6 @@ import ImageZoom from "react-native-image-pan-zoom";
 LogBox.ignoreLogs(["Warning: Setting a timer"]); // For getting rid of annoying log warnings (https://github.com/facebook/react-native/issues/12981)
 
 import { SearchBar, Button } from "react-native-elements";
-import { useState } from "react";
 import Directions from "./Directions.js";
 import Search from "./Search.js";
 import { addNode, addEdge, getGraph } from "./firebase.js";
@@ -93,22 +92,22 @@ const n10 = {
   z: 0
 };
 
-function getGraph() {
-  return [[n1,n2,n3,n4,n5,n6,n7,n8,n9,n10],[[1,2,6],[0,2],[0,1,3],[2,7],[5],[4,6,8],[0,5],[3,4],[5,9],[8]]];
-}
+//function getGraph() {
+//  return [[n1,n2,n3,n4,n5,n6,n7,n8,n9,n10],[[1,2,6],[0,2],[0,1,3],[2,7],[5],[4,6,8],[0,5],[3,4],[5,9],[8]]];
+//}
 
 let nodes = null;
 let edges = null;
 
 export default function App() {
-  let [graph, setGraph] = useState(null);
+  let [path, setPath] = useState(null);
+  let [nodes, setNodes] = useState(null);
+  let [edges, setEdges] = useState(null);
   //This will be ran only once (at the beginning)
   useEffect(async () => {
     graph = await getGraph();
-    setGraph(graph);
-    console.log("Graph found!");
-    console.log(graph);
-    console.log("bbbb");
+    setNodes(graph[0]);
+    setEdges(graph[1]);
   }, []);
   
   const updatePath = (start,end) => {
@@ -116,8 +115,6 @@ export default function App() {
     console.log(end);
     let start_index = -1;
     let end_index = -1;
-    console.log("HERE");
-    console.log(nodes);
     for (let i=0; i<nodes.length; i++) {
       console.log(nodes[i].name);
       if (nodes[i].name == start) {
@@ -127,9 +124,7 @@ export default function App() {
         end_index = i;
       }
     }
-    setData(a_star(nodes,edges,start_index,end_index));
-    console.log('TESTING');
-    console.log(path);
+    setPath(a_star(nodes,edges,start_index,end_index));
   };
   const demo = async () => {
     console.log("aaaa - starting");
@@ -144,16 +139,15 @@ export default function App() {
   };
   return (
     <View style = {styles.background}>
-      <ImageZoom cropWidth={d.width}
-                       cropHeight={d.height-200}
-                       imageWidth={d.width}
-                       imageHeight={d.height-200}
-                       maxOverflow={500}>
-              <ImageBackground style={styles.image}
-                       source={{uri:'https://www.mit.edu/files/images/201807/15656704711_00457bd2c9_b_1.jpg'}}
-                       style={{width: d.width, height: d.height-100}}>
-                  <Directions path = {path} nodes = {nodes} edges = {edges}/>
-              </ImageBackground>
+        <ImageZoom cropWidth={d.width}
+                    cropHeight={d.height-200}
+                    imageWidth={5000}
+                    imageHeight={5000}
+                    maxOverflow={1000}
+                    minScale={0.1}
+                    maxScale={100}
+                    enableCenterFocus={false}>
+            <Directions path = {path} nodes = {nodes} edges = {edges} height = {5000} width = {5000} uri = {"https://drive.google.com/uc?id=1--kPRgt3169cOsD1g-kYVIGvo5YBoQZi"}/>
         </ImageZoom>
 
 

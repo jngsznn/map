@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
-import Svg, {Path, Circle} from 'react-native-svg';
+import Svg, {Path, Circle, SvgUri} from 'react-native-svg';
 import a_star from './astar.js'
 
 export default class Directions extends React.Component {
@@ -13,7 +13,6 @@ export default class Directions extends React.Component {
         let circles = [];
         let path = ``;
         let connections = [];
-        console.log(this.props);
         let prevKey = -1;
 
         if (this.props.nodes != null && this.props.edges != null) {
@@ -32,11 +31,7 @@ export default class Directions extends React.Component {
             }
         }
 
-        console.log("HERE");
-        console.log(this.props.path);
         if (this.props.path != null && this.props.path != -1 && this.props.path != "") {
-            console.log(this.props);
-            console.log(this.props.path);
             path = `M ${this.props.path[0][0]} ${this.props.path[0][1]}`;
             let on_floor = (this.props.path[0][2] == this.state["floor"]);
             let previous_on_floor = this.props.path[0];
@@ -86,7 +81,12 @@ export default class Directions extends React.Component {
     render() {
         let data = this.prepareData();
         return (
-            <Svg>
+            <Svg height={this.props.height} width={this.props.width}>
+                <SvgUri
+                    width="100%"
+                    height="100%"
+                    uri={this.props.uri}
+                />
                 {data[2]}
                 <Path d = {data[0]} 
                     stroke="yellow"
@@ -95,6 +95,7 @@ export default class Directions extends React.Component {
                 />
                 {data[1]}
             </Svg> 
+
         )
     }
 }
