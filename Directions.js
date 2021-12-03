@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
 import Svg, {Path, Circle, SvgUri} from 'react-native-svg';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
+//import ScrollPicker from 'react-native-wheel-scroll-picker';
 import a_star from './astar.js'
 
 export default class Directions extends React.Component {
