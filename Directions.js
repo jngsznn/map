@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
 import Svg, {Path, Circle, SvgUri} from 'react-native-svg';
+import ScrollPicker from 'react-native-wheel-scroll-picker';
 import a_star from './astar.js'
 
 export default class Directions extends React.Component {
@@ -74,7 +75,6 @@ export default class Directions extends React.Component {
                 circles.push(<Circle cx={this.props.path[this.props.path.length-1][0]} cy={this.props.path[this.props.path.length-1][1]} r="10" stroke="green" strokeWidth="3" strokeDasharray="2 2" key={prevKey}/>)
             }
         }
-        circles.push(<Circle cx={2164} cy={1591} r="10" stroke="green" strokeWidth="3" strokeDasharray="2 2" key={prevKey}/>)
 
         return [path, circles, connections];
     }
@@ -82,17 +82,47 @@ export default class Directions extends React.Component {
     render() {
         let data = this.prepareData();
         return (
-            <Svg height={this.props.height} width={this.props.width}>
-                {data[2]}
-                <Path d = {data[0]} 
-                    stroke="yellow"
-                    strokeWidth={5}
-                    fill="none"
+            <View>
+                <Svg height={this.props.height} width={this.props.width}>
+                    {data[2]}
+                    <Path d = {data[0]} 
+                        stroke="yellow"
+                        strokeWidth={5}
+                        fill="none"
+                    />
+                    {data[1]}
+                    <Image source={require('./1_0_original.png')} style = {styles.image} opacity={0.5}/>
+                </Svg>
+                <ScrollPicker
+                  dataSource={[
+                       'a',
+                       'b',
+                       'c',
+                       'd',
+                  ]}
+                  selectedIndex={1}
+                  renderItem={(data, index, isSelected) => {
+                      //
+                  }}
+                  onValueChange={(data, selectedIndex) => {
+                      //
+                  }}
+                  wrapperHeight={180}
+                  wrapperWidth={150}
+                  wrapperBackground={'#FFFFFF'}
+                  itemHeight={60}
+                  highlightColor={'#d8d8d8'}
+                  highlightBorderWidth={2}
+                  activeItemColor={'#222121'}
+                  itemColor={'#B4B4B4'}
                 />
-                {data[1]}
-                <Image source={require('./1_0_original.png')} opacity={0.5}/>
-            </Svg> 
-
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    floorpicker: {
+     //backgroundColor: 'yellow',
+    }
+   });

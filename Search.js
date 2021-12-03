@@ -29,7 +29,7 @@ export default class Search extends React.Component {
             <SearchBar
             
             //lightTheme="true"
-            placeholder= "start"
+            placeholder= "Start"
             onChangeText={this.updateStart}
             round="true"
             inputStyle={{color:'white', fontSize:18}}
@@ -39,7 +39,7 @@ export default class Search extends React.Component {
     
     
             <SearchBar
-            placeholder= "end"
+            placeholder= "End"
             round="true"
             onChangeText={this.updateEnd}
             //containerStyle={{backgroundColor: 'white'}}

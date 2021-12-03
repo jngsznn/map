@@ -19,6 +19,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-svg": "^12.1.1",
     "react-native-web": "0.17.1",
+    "react-native-wheel-scroll-picker": "^0.2.4",
     "realm": "^10.10.0"
   },
   "devDependencies": {

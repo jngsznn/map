@@ -28,6 +28,7 @@ export default function App() {
   let [path, setPath] = useState(null);
   let [nodes, setNodes] = useState(null);
   let [edges, setEdges] = useState(null);
+  let [searchActive, setSearch] = useState(null);
   //This will be ran only once (at the beginning)
   useEffect(async () => {
     graph = await getGraph();
@@ -54,21 +55,19 @@ export default function App() {
   
   return (
     <View style = {styles.background}>
+        <SafeAreaView style={styles.container}>
+            <Search style={styles.searchbar} update_start_end={updatePath}/>
+        </SafeAreaView>
         <ImageZoom cropWidth={d.width}
                     cropHeight={d.height-200}
-                    imageWidth={5000}
-                    imageHeight={5000}
+                    imageWidth={6800}
+                    imageHeight={4400}
                     maxOverflow={1000}
-                    minScale={0.1}
+                    minScale={0.01}
                     maxScale={100}
                     enableCenterFocus={false}>
-            <Directions path = {path} nodes = {nodes} edges = {edges} height = {5000} width = {5000} uri = {"https://drive.google.com/uc?id=1--kPRgt3169cOsD1g-kYVIGvo5YBoQZi"}/>
+            <Directions path = {path} nodes = {nodes} edges = {edges} height = {4400} width = {5000} uri = {"https://drive.google.com/uc?id=1--kPRgt3169cOsD1g-kYVIGvo5YBoQZi"}/>
         </ImageZoom>
-
-
-      <SafeAreaView style={styles.container}>
-        <Search style={styles.searchbar} update_start_end={updatePath}/>
-      </SafeAreaView>
   </View>
  
  );
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
    width:'100%',
 
    //alignContent:'center',
-   position:'absolute',
 
    //backgroundColor: '#fff',
 
