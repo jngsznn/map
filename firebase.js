@@ -233,6 +233,7 @@ const getEdges = async () => {
 const getGraph = async () => {
   let [nodes, positions] = await getNodes();
   let edges = await getEdges();
+  console.log(`Gotten ${edges.lenght} edges!`)
   let connections = [];
   for (let i = 0; i < nodes.length; i++) {
     connections.push([]);
@@ -246,6 +247,43 @@ const getGraph = async () => {
     connections[end_index].push(start_index);
   }
 
+  return [nodes, connections];
+};
+// Below is code for testing purposes, using a json file with information about the nodes and connections
+// of floorpan 10_2 
+import new_info from "./10_2_graph.json"
+
+const getGraph_demo = () => {
+  let nodes_full_info = new_info["nodes"];
+  let nodes = [];
+  for (let [node, x, y, z] of nodes_full_info){
+    // added x and y inverted 
+    nodes.push({
+      name: node,
+      x: y, 
+      y: x, 
+      z:z
+    })
+  }
+  let edges_full_info = new_info["edges"];
+  console.log(Object.keys(edges_full_info)[2]);
+  console.log(Object.values(edges_full_info)[2]);
+  let num = 123;
+  console.log(num.toString());
+  let num_nodes = nodes.length;
+  let connections = [];
+  console.log(`Found ${num_nodes} nodes`);
+  for (let i = 0; i < num_nodes; i++) {
+    // console.log(i);
+    let neighbors = edges_full_info[i.toString()];
+    if (!neighbors){ //if doesnt exist then set it to an empty list
+      neighbors = [];
+    }
+    // let neighbors = Object.values(edges_full_info)[1];
+    // let length = neighbors.length;
+    connections.push(neighbors);
+  }
+  console.log(`Found ${connections.length} nodes (from edges)`);
   return [nodes, connections];
 };
 /**
@@ -292,4 +330,4 @@ const getGraph = async () => {
 //   return [nodes, connections];
 // };
 
-export { addNode, addEdge, getGraph };
+export { addNode, addEdge, getGraph, getGraph_demo };
