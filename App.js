@@ -58,14 +58,14 @@ export default function App() {
     console.log('start_index', start_index);
     console.log('end', end)
     console.log('end_index', end_index);
-    let path = a_star(nodes,edges,start_index,end_index);
-    if (path == -1){
+    let found_path = a_star(nodes,edges,start_index,end_index);
+    if (found_path == -1){
       setFeedback(`Oops! Couldn't find a path between '${start}' and '${end}'`)
     } else{
       setFeedback(`Showing path between '${start}' and '${end}'`)
     }
-    console.log('Found PATH', path);
-    setPath(path);
+    console.log('Found PATH', found_path);
+    setPath(found_path);
   };
   //Functin below tries to parse the JSON file and upload it to Firestore
   //Should not be called unless necessary
@@ -114,24 +114,22 @@ export default function App() {
   }
   return (
     <View style = {styles.background}>
-        {/* { path != null &&  */}
+        <SafeAreaView style={styles.container}>
+            <Search style={styles.searchbar} update_start_end={updatePath}/>
+        </SafeAreaView>
+        <Text>{feedback}</Text>
+
         <ImageZoom cropWidth={d.width}
-                    cropHeight={d.height-200}
-                    imageWidth={5000}
-                    imageHeight={5000}
+                    cropHeight={d.height-85}
+                    imageWidth={6800}
+                    imageHeight={4400}
                     maxOverflow={1000}
-                    minScale={0.1}
+                    minScale={0.01}
                     maxScale={100}
-                    enableCenterFocus={false}>
-            <Directions path = {path} nodes = {nodes} edges = {edges} height = {5000} width = {5000} uri = {"https://drive.google.com/uc?id=1--kPRgt3169cOsD1g-kYVIGvo5YBoQZi"}/>
+                    enableCenterFocus={false}
+                    >
+            <Directions path = {path} nodes = {nodes} edges = {edges} height = {4400} width = {5000} uri = {"https://drive.google.com/uc?id=1--kPRgt3169cOsD1g-kYVIGvo5YBoQZi"} />
         </ImageZoom>
-      {/* } */}
-
-
-      <SafeAreaView style={styles.container}>
-        <Search style={styles.searchbar} update_start_end={updatePath}/>
-      </SafeAreaView>
-      <Text>{feedback}</Text>
   </View>
  
  );
@@ -150,7 +148,6 @@ const styles = StyleSheet.create({
    width:'100%',
 
    //alignContent:'center',
-   position:'absolute',
 
    //backgroundColor: '#fff',
 

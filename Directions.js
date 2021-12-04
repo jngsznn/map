@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
 import Svg, {Path, Circle, SvgUri} from 'react-native-svg';
-// import a_star from './astar.js'
+//import ScrollPicker from 'react-native-wheel-scroll-picker';
+import a_star from './astar.js'
 
 export default class Directions extends React.Component {
     constructor(props) {
@@ -84,6 +85,7 @@ export default class Directions extends React.Component {
     }
     render() {
         let data = this.prepareData();
+        console.log(this.props.path);
         return (
              <Svg height={'100%'} width={'100%'}> 
                  {data[2]}
@@ -92,9 +94,15 @@ export default class Directions extends React.Component {
                      strokeWidth={5}
                      fill="none"
                  />
-                {data[1]}
                 <Image source={require('./10_2_cleaned.png')}    opacity={0.5}/>
+                {data[1]}
             </Svg> 
         )
     }
 }
+
+const styles = StyleSheet.create({
+    floorpicker: {
+     //backgroundColor: 'yellow',
+    }
+   });
