@@ -102,9 +102,6 @@ function get_xyz(node) {
 }
 
 function reconstruct_path(previous, node, nodes) {
-    for (let i=0; i<nodes.length; i++) {
-        console.log(previous[i]);
-    }
     let path = [get_xyz(nodes[node])];
     let next = previous[node];
     while (next != -1) {
