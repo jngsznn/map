@@ -1,21 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
 import Svg, {Path, Circle, SvgUri} from 'react-native-svg';
-import a_star from './astar.js'
+// import a_star from './astar.js'
 
 export default class Directions extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {"floor": 0};
+        this.state = {"floor": 100}; //hardcoded number in z 
     }
 
-    prepareData() {
+    prepareData = () => {
         let circles = [];
         let path = ``;
         let connections = [];
         let prevKey = -1;
 
-        if (this.props.nodes != null && this.props.edges != null) {
+        // This is adding all connections in the graph, so probably not something we want
+        if (false && this.props.nodes != null && this.props.edges != null) {
             for (let i=0; i<this.props.nodes.length; i++) {
                 for (let j=0; j<this.props.edges[i].length; j++) {
                     let node1 = this.props.nodes[i];
@@ -43,12 +44,17 @@ export default class Directions extends React.Component {
             for (let i=1; i<this.props.path.length; i++) {
                 if (this.props.path[i][2] == this.state["floor"]) {
                     if (on_floor) {
+                        //Also add the circles of everything in the path, for better visualization
+                        //TODO: check logic (if this needs to be placed in some of the other 'if's)
                         path += ` L${this.props.path[i][0]} ${this.props.path[i][1]}`;
+                        prevKey += 1;
+                        circles.push(<Circle cx={this.props.path[i][0]} cy={this.props.path[i][1]} r="10" fill="blue" key={prevKey}/>)
+
                     } else {
                         path += ` M${this.props.path[i][0]} ${this.props.path[i][1]}`;
                         on_floor = true;
                         prevKey += 1;
-                        circles.push(<Circle cx={this.props.path[i][0]} cy={this.props.path[i][1]} r="10" fill="yellow" key={prevKey}/>)
+                        circles.push(<Circle cx={this.props.path[i][0]} cy={this.props.path[i][1]} r="10" fill="blue" key={prevKey}/>)
                         prevKey += 1;
                         connections.push(<Path d = {`M${previous_on_floor[0]} ${previous_on_floor[1]} L${this.props.path[i][0]} ${this.props.path[i][1]}`} 
                         stroke="red"
@@ -74,25 +80,21 @@ export default class Directions extends React.Component {
                 circles.push(<Circle cx={this.props.path[this.props.path.length-1][0]} cy={this.props.path[this.props.path.length-1][1]} r="10" stroke="green" strokeWidth="3" strokeDasharray="2 2" key={prevKey}/>)
             }
         }
-        circles.push(<Circle cx={2164} cy={1591} r="10" stroke="green" strokeWidth="3" strokeDasharray="2 2" key={prevKey}/>)
-
         return [path, circles, connections];
     }
-
     render() {
         let data = this.prepareData();
         return (
-            <Svg height={this.props.height} width={this.props.width}>
-                {data[2]}
-                <Path d = {data[0]} 
-                    stroke="yellow"
-                    strokeWidth={5}
-                    fill="none"
-                />
+             <Svg height={'100%'} width={'100%'}> 
+                 {data[2]}
+                 <Path d = {data[0]} 
+                     stroke="red"
+                     strokeWidth={5}
+                     fill="none"
+                 />
                 {data[1]}
-                <Image source={require('./1_0_original.png')} opacity={0.5}/>
+                <Image source={require('./10_2_cleaned.png')}    opacity={0.5}/>
             </Svg> 
-
         )
     }
 }
