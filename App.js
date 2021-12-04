@@ -28,7 +28,6 @@ export default function App() {
   let [path, setPath] = useState(null);
   let [nodes, setNodes] = useState(null);
   let [edges, setEdges] = useState(null);
-  let [searchActive, setSearch] = useState(null);
   //This will be ran only once (at the beginning)
   useEffect(async () => {
     graph = await getGraph();
@@ -59,7 +58,7 @@ export default function App() {
             <Search style={styles.searchbar} update_start_end={updatePath}/>
         </SafeAreaView>
         <ImageZoom cropWidth={d.width}
-                    cropHeight={d.height-200}
+                    cropHeight={d.height-85}
                     imageWidth={6800}
                     imageHeight={4400}
                     maxOverflow={1000}
